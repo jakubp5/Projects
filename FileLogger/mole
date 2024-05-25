@@ -1,0 +1,250 @@
+#!/bin/bash
+
+POSIXLY_CORRECT=yes
+
+#########################
+#author: xpogad00
+#ios, text wrapper project
+#########################
+
+#FORMAT OF MOLE_RC = FILE;REALPATH;DIRECTORY;GROUP;DATE
+#if MOLE_RC not defined, error
+if [ -z "${MOLE_RC}" ]; then
+    echo "MOLE_RC error" >&2
+    exit 1
+fi
+
+#check if realpath exists
+if ! command -v realpath &> /dev/null; then
+    echo "Realpath not found" >&2
+    exit 1
+fi
+
+
+#set editor, if editor is empty, then visual, if visual is empty then vi
+if [ -z "${EDITOR}" ]; then
+    if [ -z "${VISUAL}" ]; then
+        EDITOR=vi
+    else
+        EDITOR="${VISUAL}"
+    fi
+fi
+
+#prints help
+help(){
+    echo "mole -h | prints help"
+    echo "mole [-g GROUP] FILE | opens file, use g for grouping"
+    echo "mole [-m] [FILTERS] [DIRECTORY] | edit again, use m for mosst edited option"
+    echo "mole list [FILTERS] [DIRECTORY] | list files"
+    exit 0
+}
+#log in format: FILE;REALPATH;DIRECTORY;GROUP;DATE
+log(){
+    echo "$(basename $FILE);$(realpath $FILE);$(dirname $FILE);$GROUP;$(date +%Y-%m-%d_%H-%M-%S)" >> $MOLE_RC
+}
+
+#check if file is empty
+no_file(){
+    if [ -z $FILE ]; then 
+        echo "No match found" >&2
+        exit 1
+    fi
+}
+COMMAND="x"
+BEFORE="9999-12-31"
+AFTER="0000-01-01"
+GROUP="-"
+MOST="0"
+#while loop for parsing arguments
+while [ $# -gt 0 ]; do
+    case "$1" in
+    list)
+        COMMAND="list"
+        shift
+        ;;
+    secret-log)
+        COMMAND="secret-log"
+        shift
+        ;;
+    -h)
+        help
+        exit 0
+        ;;
+    -g)
+        GROUP=$2
+        shift
+        shift
+        ;;
+    -a)
+        AFTER=$2
+        shift                                                                                           
+        shift
+        ;;
+    -b)
+        BEFORE=$2
+        shift
+        shift   
+        ;;
+    -m)
+        MOST=1
+        shift
+        ;;
+    *)
+        if [ -d $1 ]; then
+            DIR=$1
+            shift
+        else
+            FILE=$(realpath $1)
+            shift
+        fi
+    ;;
+    esac
+done
+
+#if no command and file exists, open the file
+if [ $COMMAND = "x" ] && [ ! -z $FILE ]; then
+    log
+    eval $EDITOR $FILE
+    exit 0
+fi
+
+###################################################################################################################################################
+#EDIT AGAIN SECTION
+#if no command, edit again
+if [ $COMMAND = "x" ]; then
+    #if no directory, set DIR to pwd
+    if [ -z $DIR ]; then
+        DIR=$(pwd)
+    fi
+    #searches for line after the date and stores it into SEARCH_FILE
+    SEARCH_FILE=$(awk -v after="$AFTER" -F ';' '{if ($5 >= after) print $0}' $MOLE_RC)
+    #searches for line before the date and stores it into SEARCH_FILE
+    SEARCH_FILE=$(echo "$SEARCH_FILE" | awk -v before="$BEFORE" -F ';' '{if ($5 <= before) {print $0}}')
+    # if m is set, open the most opened file in given directory
+    if [ $MOST -eq "1" ]; then
+        #if group isnt set open the most opened file in that directory
+        if [ $GROUP = "-" ]; then
+            FILE=$(echo "$SEARCH_FILE" | awk -v DIR="$DIR" -F ";" '{if ($3 == DIR) print $2}' | sort | uniq -c | sort -rn | head -n 1 | awk '{print $2}')
+            #echo $FILE
+            no_file
+            log
+            eval $EDITOR $FILE
+            exit 0
+        #if group is set open the most opened file in given directory with given group
+        else
+            FILE=$(echo "$SEARCH_FILE" | awk -v DIR="$DIR" -v GROUP="$GROUP" -F ";" '{if ($3 == DIR && $4 == GROUP) print $2}' | sort | uniq -c | sort -rn | head -n 1 | awk '{print $2}')
+            #echo $FILE
+            no_file
+            log
+            eval $EDITOR $FILE
+            exit 0
+        fi
+    fi
+    #if m isnt set, open the last file in that directory
+    if [ $MOST -eq "0" ]; then
+        #if group is dash(default), dont grep group
+        if [ $GROUP = "-" ]; then
+            FILE=$(echo "$SEARCH_FILE" | grep ";$DIR;" | awk -F ";" 'END {print $2}')
+            no_file
+            log
+            eval $EDITOR $FILE
+            exit 0
+        else
+            #else grep also with group
+            FILE=$(echo "$SEARCH_FILE" | grep ";$DIR;$GROUP;" | awk -F ";" 'END {print $2}')
+            no_file
+            log
+            eval $EDITOR $FILE
+            exit 0
+        fi
+fi  fi
+
+##########################################################################################################################################################################
+#list section
+if [ $COMMAND = "list" ]; then
+    #check if DIR is empty
+    if [ -z $DIR ]; then
+        DIR=$(pwd)
+    fi
+    if [ ! -s "$MOLE_RC" ]; then
+        echo "Nothing to list" >&2
+        exit 1
+    fi
+    #searches for line after the date and stores it into SEARCH_FILEgre
+    SEARCH_FILE=$(awk -v after="$AFTER" -v dir="$DIR" -F ';' '{if ($5 >= after && $3 == dir) print $0}' $MOLE_RC)
+    #searches for line before the date and stores it into SEARCH_FILE
+    SEARCH_FILE=$(echo "$SEARCH_FILE" | awk -v before="$BEFORE" -F ';' '{if ($5 <= before) {print $0}}')
+    #if group was set, list only given group
+    if [ $GROUP != "-" ]; then
+        #create an array with all of the files
+        readarray -t files <<< "$(echo "$SEARCH_FILE" | awk -F ';' -v group="$GROUP" '{if ($4 == group) {print $1}}'| sort -u )"
+        indent=0
+        most=0
+        for file in "${files[@]}"
+        do
+            size=${#file}
+            if [ "$size" -gt "$indent" ]; then
+                indent=$size
+                indent=$((indent+2))
+            fi
+        done
+        for file in "${files[@]}"
+        do
+            printf "%-*s%s\n" "$indent" "$file:" "$GROUP"
+        done
+        exit 0
+    fi
+    #if group was not set, print all of the files with their groups
+    if [ $GROUP = "-" ]; then
+        #create an array with all of the files
+        readarray -t files <<< "$(echo "$SEARCH_FILE" | awk -F ';' '{print $1}'| sort -u )"
+        indent=0
+        most=0
+        #calculate the length of indentation and add 2 to it because of " :"
+        for file in "${files[@]}"
+        do
+            size=${#file}
+            if [ "$size" -gt "$indent" ]; then
+                indent=$size
+                indent=$((indent+2))
+            fi
+        done
+        #print files with their respective groups with indentation
+        for file in "${files[@]}"
+        do
+            readarray -t groups <<< "$(echo "$SEARCH_FILE" | awk -v file="$file" -F ';' '{if($1 == file){print $4}}' | sort -u |  paste -sd, |  sed 's/-,//g')"
+            printf "%-*s%s\n" "$indent" "$file:" "$groups"
+        done
+        exit 0
+    fi
+fi
+
+########################################################################################################################################################################## 
+
+
+if [ $COMMAND = "secret-log" ]; then
+    #check if DIR is empty
+    if [ -z "$DIR" ]; then
+        #searches for line after the date and stores it into SEARCH_FILE
+        SEARCH_FILE=$(awk -v after="$AFTER" -v dir="$DIR" -F ';' '{if ($5 >= after) print $0}' $MOLE_RC)
+        #searches for line before the date and stores it into SEARCH_FILE
+        SEARCH_FILE=$(echo "$SEARCH_FILE" | awk -v before="$BEFORE" -F ';' '{if ($5 <= before) {print $0}}')
+    else
+        SEARCH_FILE=$(awk -v after="$AFTER" -v dir="$DIR" -F ';' '{if ($5 >= after && dir == $3 ) print $0}' $MOLE_RC)
+        SEARCH_FILE=$(echo "$SEARCH_FILE" | awk -v before="$BEFORE" -F ';' '{if ($5 <= before) {print $0}}')
+    fi
+    #check if there are any lines, if not, exit
+    if [ -z "$SEARCH_FILE" ]; then
+        echo "No match found" >&2
+        exit 1
+    fi
+    #filter for group
+    if [ "$GROUP" != "-" ]; then
+        SEARCH_FILE=$(echo "$SEARCH_FILE" | awk -v group="$GROUP" -F ';' '{if ($4 == group) {print $0}}')
+    fi
+    #zip the file
+    RESULT=$(echo "$SEARCH_FILE" |  awk -F";" '{files[$2] = files[$2]";"$5}; END{for(i in files) {print i,files[i]}}'| sed 's/ //g')
+    TIME=$(date +%Y-%m-%d_%H-%M-%S)
+    echo "$RESULT" |  bzip2 > "/home/$USER/.mole/log_"$USER"_$TIME.bz2"
+    exit 0
+fi
