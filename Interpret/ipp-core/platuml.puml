@@ -1,0 +1,190 @@
+@startuml
+abstract class Instruction {
+    -array args
+    -string opcode
+    -int order
+    -FrameManager frames
+    -OutputWriter stdout
+    -InputReader input
+    -OutputWriter stderr
+    -mixed arg1
+    -mixed arg2
+    -mixed arg3
+    -string arg1Type
+    -string arg2Type
+    -string arg3Type
+    -ProgramFlow programFlow
+    +__construct(string opcode, array args, int order, FrameManager frames, OutputWriter stdout, InputReader input, OutputWriter stderr, ProgramFlow programFlow)
+    +getArgValueAndType(mixed arg, mixed argType): array
+    +execute(): void
+}
+
+class MoveInstruction extends Instruction {
+    +execute(): void
+}
+
+class DefVarInstruction extends Instruction {
+    +execute(): void
+}
+
+class CreateFrameInstruction extends Instruction {
+    +execute(): void
+}
+
+class PushFrameInstruction extends Instruction {
+    +execute(): void
+}
+
+class PopSInstruction extends Instruction {
+    +execute(): void
+}
+
+class PushSInstruction extends Instruction {
+    +execute(): void
+}
+
+class PopFrameInstruction extends Instruction {
+    +execute(): void
+}
+
+class WriteInstruction extends Instruction {
+    +execute(): void
+}
+
+abstract class ArithmeticInstruction extends Instruction {
+    +execute(): void
+    +calculate(int value1, int value2): int
+}
+
+class MulInstruction extends ArithmeticInstruction {
+    +calculate(int value1, int value2): int
+}
+
+class AddInstruction extends ArithmeticInstruction {
+    +calculate(int value1, int value2): int
+}
+
+class SubInstruction extends ArithmeticInstruction {
+    +calculate(int value1, int value2): int
+}
+
+class IdivInstruction extends ArithmeticInstruction {
+    +calculate(int value1, int value2): int
+}
+
+class LabelInstruction extends Instruction {
+    +execute(): void
+}
+
+class JumpInstruction extends Instruction {
+    +execute(): void
+}
+
+class JumpifeqInstruction extends Instruction {
+    +execute(): void
+}
+
+class JumpifneqInstruction extends Instruction {
+    +execute(): void
+}
+
+abstract class ComparisonInstruction extends Instruction {
+    +execute(): void
+    +compare(mixed value1, mixed value2, string value1type, string value2type): bool
+}
+
+class LtInstruction extends ComparisonInstruction {
+    +compare(mixed value1, mixed value2, string value1type, string value2type): bool
+}
+
+class GtInstruction extends ComparisonInstruction {
+    +compare(mixed value1, mixed value2, string value1type, string value2type): bool
+}
+
+class EqInstruction extends ComparisonInstruction {
+    +compare(mixed value1, mixed value2, string value1type, string value2type): bool
+}
+
+class ConcatInstruction extends Instruction {
+    +execute(): void
+}
+
+abstract class BooleanInstruction extends Instruction {
+    +execute(): void
+    +compare(bool value1, bool value2): bool
+}
+
+class AndInstruction extends BooleanInstruction {
+    +compare(bool value1, bool value2): bool
+}
+
+class OrInstruction extends BooleanInstruction {
+    +compare(bool value1, bool value2): bool
+}
+
+class NotInstruction extends Instruction {
+    +execute(): void
+}
+
+class StrlenInstruction extends Instruction {
+    +execute(): void
+}
+
+class GetcharInstruction extends Instruction {
+    +execute(): void
+}
+
+class TypeInstruction extends Instruction {
+    +execute(): void
+}
+
+class Int2charInstruction extends Instruction {
+    +execute(): void
+}
+
+class Stri2intInstruction extends Instruction {
+    +execute(): void
+}
+
+class SetcharInstruction extends Instruction {
+    +execute(): void
+}
+
+class ReturnInstruction extends Instruction {
+    +execute(): void
+}
+
+class CallInstruction extends Instruction {
+    +execute(): void
+}
+
+class ReadInstruction extends Instruction {
+    +execute(): void
+}
+
+class ExitInstruction extends Instruction {
+    +execute(): void
+}
+
+class DprintInstruction extends Instruction {
+    +execute(): void
+}
+
+class FrameManager {
+    -array stack
+    -array globalFrame
+    -array temporaryFrame
+    +__construct()
+    +defVar(string var): void
+    +setVariable(string var, mixed value, string type): void
+    +getVariable(string var): mixed
+    +getVariableType(string var): string
+    +createFrame(): void
+    +pushFrame(): void
+    +popFrame(): void
+    +pushStack(mixed value, string type): void
+    +popStack(): array
+}
+
+
+@enduml
