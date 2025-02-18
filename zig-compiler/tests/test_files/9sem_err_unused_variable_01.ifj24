@@ -1,0 +1,7 @@
+const ifj = @import("ifj24.zig");
+
+// Error: unused variable
+
+pub fn main() void {
+    var x: i32 = 5; 
+}

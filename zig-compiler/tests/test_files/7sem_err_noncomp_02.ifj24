@@ -1,0 +1,7 @@
+const ifj = @import("ifj24.zig");
+
+// Error: Type mismatch in assignment (cannot assign string to i32)
+
+pub fn main() void {
+    var x: i32 = "string"; 
+}

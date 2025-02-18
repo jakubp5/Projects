@@ -1,0 +1,13 @@
+const ifj = @import("ifj24.zig");
+
+// Error: definition of the function is incorrect
+
+pub fn main() void {
+
+}
+
+pub f id() void {
+    var cislo : i32 = 123;
+}
+
+// syntakticka

@@ -1,0 +1,8 @@
+const ifj = @import("ifj24.zig");
+
+// Error: Use of undefined variable `tvl`
+
+pub fn main() void {
+    var result: i32 = tvl + 5;
+    return;
+}
