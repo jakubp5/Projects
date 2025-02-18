@@ -1,0 +1,24 @@
+Jakub Pogádl (xpogad00) 18.11.2024
+
+Program monitoruje DNS komunikáciu cez rozhranie, alebo PCAP file. Doménové mená a preklady následne ukladá do súborov. Na stdout vypisuje informácie ohľadom odchytenej komunikácie.
+
+-i <interface>: Specifikuje sieťové rozhranie, na ktorom sa budú zachytávať pakety v reálnom čase. Tento argument je povinný, ak nie je špecifikovaný pcap súbor.
+ -p <pcapfile>: Specifikuje pcap súbor, z ktorého sa budú spracovávať pakety. Tento argument je povinný, ak nie je špecifikované sieťové rozhranie.
+ -v: Voliteľný argument, ktorý zapne podrobné výpisy (verbose mode). Program bude vypisovať viac informácií o spracovávaní paketov.
+ -d <domainsfile>: Voliteľný argument, ktorý špecifikuje súbor, do ktorého sa budú zapisovať domény.
+ -t <translationsfile>: Voliteľný argument, ktorý špecifikuje súbor, do ktorého sa budú zapisovať preklady IP adries.
+
+Priklad pouzitia:
+./dns-monitor -d domain -t translation -i eno1 -v
+
+Program naslucha na rozhrani eno1, domeny zapisuje do suboru domain a preklady do suboru translation. Vypisovanie je vo verbose mode.
+
+Zoznam odovzdanych suborov:
+dns-monitor.cpp
+dns-monitor.h
+ArgumentParser.h
+ArgumentParser.cpp
+Makefile
+manual.pdf
+README
+
