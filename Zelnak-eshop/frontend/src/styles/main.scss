@@ -1,0 +1,11 @@
+// Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+// Default styles
+@import './normalize.scss'; //: normalize.css
+@import './globals.scss'; //: *, body, :placeholder, headings, p, a,
+
+// Colors and variables
+@import './colors.module.scss'; // : color palette
+@import './variables.module.scss'; //: font sizes, paddings, margins

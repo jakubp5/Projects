@@ -1,0 +1,18 @@
+{
+    "name": "zelnak-app",
+    "homepage": "https://vagosturbo.github.io/zelnak-app/",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "concurrently -n \"BACKEND,FRONTEND\" -c \"blue,green\" \"npm run dev --prefix backend2.0\" \"npm run dev --prefix frontend\"",
+        "build": "cd frontend && npm install && npm run build && cd ../backend2.0 && npm install",
+        "start": "cd backend2.0 && node index.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "concurrently": "^9.1.0"
+    }
+}

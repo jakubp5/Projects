@@ -1,0 +1,81 @@
+// Google fonts
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italianno&family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+
+// Breakpoints
+$breakpoints: (
+    // xs: 24rem,
+    xs: 0,
+    // 384px
+    sm: 36rem,
+    // 576px
+    md: 48rem,
+    // 768px
+    lg: 62rem,
+    // 992px
+    xl: 75rem,
+    // 1200px
+    2xl: 90rem,
+    // 1440px
+);
+
+// Font sizes
+$font-sizes: (
+    sm: 0.75rem,
+    md: 1rem,
+    lg: 1.25rem,
+    xl: 2rem,
+    2xl: 4rem,
+);
+
+// Font families
+$font-families: (
+    primary: 'Lora, Arial, serif',
+    secondary: 'Italianno, Times New Roman, serif',
+    tertiary: 'Book Antiqua, Palatino, Times New Roman, serif',
+);
+
+// Root variables
+:root {
+    --font-family-primary: #{map-get($font-families, primary)};
+    --font-family-secondary: #{map-get($font-families, secondary)};
+    --font-family-tertiary: #{map-get($font-families, tertiary)};
+
+    --font-family-text: var(--font-family-primary);
+    --font-family-headings: var(--font-family-secondary);
+
+    --font-size-small: #{map-get($font-sizes, sm)};
+    --font-size-medium: #{map-get($font-sizes, md)};
+    --font-size-large: #{map-get($font-sizes, lg)};
+    --font-size-xlarge: #{map-get($font-sizes, xl)};
+    --font-size-2xlarge: #{map-get($font-sizes, 2xl)};
+
+    --body-font-size: 16px;
+
+    --container-width: 75rem; // 1200px
+}
+
+:export {
+    breakpointXs: map-get($breakpoints, xs);
+    breakpointSm: map-get($breakpoints, sm);
+    breakpointMd: map-get($breakpoints, md);
+    breakpointLg: map-get($breakpoints, lg);
+    breakpointXl: map-get($breakpoints, xl);
+    breakpoint2xl: map-get($breakpoints, 2xl);
+
+    fontSizeSmall: map-get($font-sizes, sm);
+    fontSizeMedium: map-get($font-sizes, md);
+    fontSizeLarge: map-get($font-sizes, lg);
+    fontSizeXlarge: map-get($font-sizes, xl);
+
+    fontFamilyPrimary: map-get($font-families, primary);
+    fontFamilySecondary: map-get($font-families, secondary);
+    fontFamilyTertiary: map-get($font-families, tertiary);
+
+    fontFamilyText: var(--font-family-primary);
+    fontFamilyHeadings: var(--font-family-secondary);
+
+    bodyFontSize: 16px;
+
+    containerWidth: 75rem;
+}

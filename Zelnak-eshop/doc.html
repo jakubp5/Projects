@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>Projekt IIS</title>
+    <style type="text/css">
+      table {
+        border-collapse: collapse;
+      }
+      td,
+      th {
+        border: 1px solid black;
+        padding: 0.3em 0.5em;
+        text-align: left;
+      }
+      dt {
+        font-weight: bold;
+        margin-top: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+    <h1>Zelny trh</h1>
+    <!-- Nahradte názvem svého zadání -->
+
+    <dl>
+      <dt>Autoři</dt>
+      <dd>
+        Marek Sucharda
+        <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+        <a href="mailto:xsucha18@stud.fit.vutbr.cz"
+          >xsucha18@stud.fit.vutbr.cz</a
+        >
+        - frontend
+      </dd>
+      <dd>
+        Jakub Pogádl
+        <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+        <a href="mailto:xpogad00@stud.fit.vutbr.cz"
+          >xpogad00@stud.fit.vutbr.cz</a
+        >
+        - backend (model, controller)
+      </dd>
+      <dd>
+        Boris Semanco
+        <!-- Nahraďte skutečným jménem a e-mailem autora a popisem činnosti -->
+        <a href="mailto:xseman06@stud.fit.vutbr.cz"
+          >xseman06@stud.fit.vutbr.cz</a
+        >
+        - backend (model, controller)
+      </dd>
+      <dt>URL aplikace</dt>
+      <dd>
+        <a href="https://vagosturbo.github.io/zelnak-app/"
+          >https://vagosturbo.github.io/zelnak-app/</a
+        >
+      </dd>
+    </dl>
+
+    <h2>Uživatelé systému pro testování</h2>
+    <table>
+      <tr>
+        <th>Login</th>
+        <th>Heslo</th>
+        <th>Role</th>
+      </tr>
+      <tr>
+        <td>admin</td>
+        <td>admin</td>
+        <td>Administrátor</td>
+      </tr>
+      <tr>
+        <td>farmer1</td>
+        <td>farmer1</td>
+        <td>Farmár</td>
+      </tr>
+      <tr>
+        <td>user1</td>
+        <td>user1</td>
+        <td>Zákazník</td>
+      </tr>
+      <tr>
+        <td>registered</td>
+        <td>registered</td>
+        <td>Registrovaný uživatel</td>
+      </tr>
+    </table>
+
+    <p>
+        <strong>Registrovaný používateľ</strong> - stane sa buď farmárom, alebo zákazníkom na základe jeho akcií.
+      </p>
+      <p>
+        <strong>Zákazník</strong> - vytvára objednávky, môže sa prihlásiť na samozber.
+      </p>
+      <p>
+        <strong>Farmár</strong> - vytvára produkty, udalosti, spravuje objednávky jeho produktov.
+      </p>
+      <p>
+        <strong>Moderátor</strong> - schvaľuje kategórie, spravuje kategórie.
+      </p>
+      <p>
+        <strong>Admin</strong> - spravuje používateľov.
+      </p>
+
+
+    <h3>Video</h3>
+
+    <p>
+      https://youtu.be/crQ47f7uLNQ
+    </p>
+
+    <h2>Implementace</h2>
+    <p>
+        <p>
+            Backend je implementovaný v Node.js a Express.js. Backend komunikuje s databázou Microsoft SQL Server. 
+            Autentifikácia a autorizácia sú implementované pomocou JWT tokenov. Projekt využíva MVC architektúru.
+          </p>
+          
+          <h3>MVC Architektúra</h3>
+          
+          <ul>
+            <li>
+              <strong>Model</strong>: 
+              <p>
+                Model predstavuje dátovú vrstvu aplikácie. Rieši komunikáciu s databázou. Pre každú entitu je vytvorený model, 
+                ktorý obsahuje metódy na prístup k databáze. Modely sú zodpovedné za vykonávanie CRUD operácií (Create, Read, Update, Delete).
+              </p>
+            </li>
+            <li>
+              <strong>Controller</strong>: 
+              <p>
+                Controller predstavuje riadiacu vrstvu aplikácie. Rieši spracovanie požiadaviek od frontendu a volanie metód modelu. 
+                Kontroléry spracovávajú HTTP požiadavky, volajú príslušné metódy modelu a vracajú odpovede klientovi.
+              </p>
+            </li>
+            <li>
+              <strong>View</strong>: 
+              <p>
+                View, riešený pomocou React.js, predstavuje prezentačnú vrstvu aplikácie. Zobrazuje dáta získané z backendu a umožňuje 
+                používateľom interakciu s aplikáciou. Komponenty Reactu komunikujú s kontrolérmi prostredníctvom HTTP požiadaviek.
+              </p>
+            </li>
+          </ul>
+          
+          <h3>Technológie</h3>
+          <ul>
+            <li><strong>Node.js</strong>: JavaScript runtime na budovanie serverových aplikácií.</li>
+            <li><strong>Express.js</strong>: Webový rámec pre Node.js na budovanie RESTful API.</li>
+            <li><strong>Microsoft SQL Server</strong>: Relačný databázový systém.</li>
+            <li><strong>JWT</strong>: JSON Web Tokens na bezpečnú autentifikáciu.</li>
+            <li><strong>dotenv</strong>: Modul na načítanie environmentálnych premenných z .env súboru.</li>
+            <li><strong>bcrypt</strong>: Knižnica na hashovanie hesiel.</li>
+          </ul>
+          
+          <h3>API Endpointy</h3>
+          <ul>
+            <li><strong>User routes</strong> (/users)
+              <ul>
+                <li>GET /: Načítanie všetkých používateľov (len admin).</li>
+                <li>GET /:id: Načítanie detailov používateľa podľa ID.</li>
+                <li>PUT /:id: Aktualizácia údajov používateľa.</li>
+                <li>DELETE /:id: Vymazanie používateľa.</li>
+                <li>POST /:userId/events: Pridanie používateľa na udalosť.</li>
+                <li>DELETE /:userId/events/:eventId: Odstránenie používateľa z udalosti.</li>
+                <li>GET /:userId/registeredevents: Načítanie udalostí, na ktoré je používateľ registrovaný.</li>
+                <li>GET /:id/events: Načítanie udalostí vytvorených používateľom.</li>
+                <li>GET /:id/products: Načítanie produktov vytvorených používateľom.</li>
+              </ul>
+            </li>
+            <li><strong>Product routes</strong> (/products)
+              <ul>
+                <li>GET /: Načítanie všetkých produktov.</li>
+                <li>GET /:id: Načítanie detailov produktu podľa ID.</li>
+                <li>POST /: Vytvorenie nového produktu.</li>
+                <li>PUT /:id: Aktualizácia existujúceho produktu.</li>
+                <li>DELETE /:id: Vymazanie produktu.</li>
+              </ul>
+            </li>
+            <li><strong>Order routes</strong> (/orders)
+              <ul>
+                <li>GET /: Načítanie všetkých objednávok (len admin).</li>
+                <li>GET /:id: Načítanie detailov objednávky podľa ID.</li>
+                <li>POST /: Vytvorenie novej objednávky.</li>
+                <li>PUT /:id: Aktualizácia existujúcej objednávky.</li>
+                <li>DELETE /:id: Vymazanie objednávky.</li>
+                <li>GET /user/:id: Načítanie objednávok podľa ID používateľa.</li>
+                <li>POST /:orderId/items: Pridanie položky do objednávky.</li>
+                <li>GET /:orderId/items: Načítanie položiek objednávky podľa ID objednávky.</li>
+                <li>PUT /items/:id: Aktualizácia položky objednávky.</li>
+                <li>DELETE /items/:id: Vymazanie položky objednávky.</li>
+                <li>GET /:sellerId/items/: Načítanie položiek objednávky podľa ID predajcu.</li>
+                <li>PUT /items/:id/approve: Schválenie položky objednávky.</li>
+              </ul>
+            </li>
+            <li><strong>Event routes</strong> (/events)
+              <ul>
+                <li>GET /: Načítanie všetkých udalostí.</li>
+                <li>GET /:id: Načítanie detailov udalosti podľa ID.</li>
+                <li>POST /: Vytvorenie novej udalosti.</li>
+                <li>PUT /:id: Aktualizácia existujúcej udalosti.</li>
+                <li>DELETE /:id: Vymazanie udalosti.</li>
+              </ul>
+            </li>
+            <li><strong>Category routes</strong> (/categories)
+              <ul>
+                <li>GET /: Načítanie všetkých kategórií.</li>
+                <li>GET /:id: Načítanie detailov kategórie podľa ID.</li>
+                <li>POST /: Vytvorenie novej kategórie.</li>
+                <li>PUT /:id: Aktualizácia existujúcej kategórie.</li>
+                <li>DELETE /:id: Vymazanie kategórie.</li>
+                <li>GET /:categoryId/hierarchy: Načítanie hierarchie kategórie.</li>
+                <li>PUT /:id/toggle: Schválenie alebo zamietnutie kategórie.</li>
+              </ul>
+            </li>
+            <li><strong>Attribute routes</strong> (/attributes)
+              <ul>
+                <li>GET /category/:categoryId: Načítanie atribútov podľa ID kategórie.</li>
+                <li>POST /: Vytvorenie nového atribútu.</li>
+                <li>PUT /:id: Aktualizácia existujúceho atribútu.</li>
+                <li>DELETE /:id: Vymazanie atribútu.</li>
+              </ul>
+            </li>
+            <li><strong>Auth routes</strong> (/register, /login)
+              <ul>
+                <li>POST /register: Registrácia nového používateľa.</li>
+                <li>POST /login: Autentifikácia používateľa a vrátenie JWT.</li>
+              </ul>
+            </li>
+          </ul>
+    </p>
+
+    <h3>Databáze</h3>
+    <img src="db.png" alt="Databáze" />
+
+    <h2>Instalace</h2>
+    <p>Inštalácia FE a BE lokálne, databáza beží vzdialene.</p>
+    
+    <h3>Postup</h3>
+    <ol>
+      <li>Rozbalenie repozitára</li>
+      <li>V root adresári spustite príkaz:
+        <pre><code>npm install</code></pre>
+      </li>
+      <li>V adresári <code>backend2.0</code> spustite príkaz:
+        <pre><code>npm install</code></pre>
+      </li>
+      <li>V adresári <code>frontend</code> spustite príkaz:
+        <pre><code>npm install</code></pre>
+      </li>
+      <li>Do adresára <code>frontend</code> pridajte súbor <code>.env</code> s nasledujúcou premennou:
+        <pre><code>VITE_API_URL=http://localhost:3000/</code></pre>
+      </li>
+      <li>Do adresára <code>backend2.0</code> pridajte súbor <code>.env</code> s nasledujúcimi premennými:
+        <pre><code>PORT=3000
+    DB_HOST=zelnak-db.database.windows.net
+    DB_USER=admin123
+    DB_PASSWORD=zrGCIYwIgV.
+    DB_DATABASE=zelnak-db
+    JWT_SECRET=s5gJK2rUUSM1cqH1BBhZGXeXHR3KmH9wMyJT7Jdhlr0=
+    DB_PORT=1433</code></pre>
+      </li>
+      <li>V root adresári spustite príkaz:
+        <pre><code>npm run dev</code></pre>
+      </li>
+    </ol>
+    
+    <p>Tento príkaz spustí frontend aj backend server súčasne. Backend server bude bežať na <code>http://localhost:3000</code> a frontend server bude komunikovať s backendom cez túto URL.</p>
+    <h2>Známé problémy</h2>
+    <p>
+      Atributy - implementované vytváranie, editovanie, deletovanie atribútov, ale pri
+      následnom vytváraní produktov nie sú použité. Je to najmä z dôvodu
+      nedostatku času.
+    </p>
+  </body>
+</html>

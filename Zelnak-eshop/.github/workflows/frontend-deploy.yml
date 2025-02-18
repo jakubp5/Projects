@@ -1,0 +1,59 @@
+name: Publish Zelnak App to GitHub Pages
+
+on:
+    push:
+        branches:
+            - main
+
+    # run this workflow manually from Actions tab
+    workflow_dispatch:
+
+# permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+# concurrency:
+#     group: "pages"
+#     cancel-in-progress: false
+
+jobs:
+    deploy:
+        if: contains(github.event.head_commit.message, '[deploy]')
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: "20.12.2"
+
+            - name: Install Frontend Dependencies
+              run: npm ci
+              working-directory: ./frontend
+
+            - name: Build Frontend
+              env:
+                VITE_API_URL: ${{ secrets.VITE_API_URL }}
+              run: npm run build
+              working-directory: ./frontend
+
+            - name: Setup Pages
+              uses: actions/configure-pages@v3
+
+            - name: Upload Build Artifacts
+              uses: actions/upload-pages-artifact@v2
+              with:
+                  path: "./frontend/dist_production"
+
+            - name: Deploy to GitHub Pages
+              id: deployment
+              uses: actions/deploy-pages@v2

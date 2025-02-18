@@ -1,0 +1,53 @@
+{
+    "name": "zelnak-app",
+    "homepage": "https://vagosturbo.github.io/zelnak-app/",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "react-scripts start",
+        "dev": "vite --mode development",
+        "dev.mode-production": "vite --mode production",
+        "build": "tsc && vite build",
+        "build.all": "tsc && vite build --mode production",
+        "build.mode-production": "tsc && vite build --mode production",
+        "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.11.4",
+        "@emotion/styled": "^11.11.5",
+        "@mui/icons-material": "^5.15.19",
+        "@mui/material": "^5.15.19",
+        "@mui/x-data-grid": "^7.9.0",
+        "@mui/x-date-pickers": "^7.6.1",
+        "@react-google-maps/api": "^2.19.3",
+        "@types/lodash": "^4.17.7",
+        "axios": "^1.7.7",
+        "dayjs": "^1.11.11",
+        "fs": "^0.0.1-security",
+        "i": "^0.3.7",
+        "jwt-decode": "^4.0.0",
+        "lodash": "^4.17.21",
+        "npm": "^10.8.2",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "react-router-dom": "^6.23.1",
+        "react-slick": "^0.30.2",
+        "slick-carousel": "^1.8.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.7.4",
+        "@types/react": "^18.2.66",
+        "@types/react-dom": "^18.2.22",
+        "@types/react-slick": "^0.23.13",
+        "@typescript-eslint/eslint-plugin": "^7.2.0",
+        "@typescript-eslint/parser": "^7.2.0",
+        "@vitejs/plugin-react": "^4.2.1",
+        "eslint": "^8.57.0",
+        "eslint-plugin-react-hooks": "^4.6.0",
+        "eslint-plugin-react-refresh": "^0.4.6",
+        "sass": "^1.77.2",
+        "typescript": "^5.6.3",
+        "vite": "^5.2.0"
+    }
+}

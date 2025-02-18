@@ -1,0 +1,446 @@
+{
+  "info": {
+    "_postman_id": "119c2c5c-ebb6-4a28-b383-9dd005b97c59",
+    "name": "Zelnak App",
+    "description": "zdar kundy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27828588"
+  },
+  "item": [
+    {
+      "name": "users",
+      "item": [
+        {
+          "name": "all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/users",
+              "host": ["{{api-url}}"],
+              "path": ["users"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/users/1",
+              "host": ["{{api-url}}"],
+              "path": ["users", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user role",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"role\": \"Moderator\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/users/2",
+              "host": ["{{api-url}}"],
+              "path": ["users", "2"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"asd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/users/3",
+              "host": ["{{api-url}}"],
+              "path": ["users", "3"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/users/6",
+              "host": ["{{api-url}}"],
+              "path": ["users", "6"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "events",
+      "item": [
+        {
+          "name": "all events",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/events",
+              "host": ["{{api-url}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get event by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/events/1",
+              "host": ["{{api-url}}"],
+              "path": ["events", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"nnn\",\r\n    \"description\": \"desccc\",\r\n    \"date\": \"2024-11-01\",\r\n    \"location\": \"brno\", \r\n    \"user_id\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/events",
+              "host": ["{{api-url}}"],
+              "path": ["events"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update event",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"nnn\",\r\n    \"description\": \"desccc\",\r\n    \"date\": \"2024-11-01\",\r\n    \"location\": \"brno2\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/events/1",
+              "host": ["{{api-url}}"],
+              "path": ["events", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete event",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/events/2",
+              "host": ["{{api-url}}"],
+              "path": ["events", "2"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "orders",
+      "item": [
+        {
+          "name": "all orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/orders",
+              "host": ["{{api-url}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get order by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/orders/1",
+              "host": ["{{api-url}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create order",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"seller_id\": 1,\r\n    \"buyer_id\": 1,\r\n    \"product_id\": 1, \r\n    \"quantity\": 1\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/orders",
+              "host": ["{{api-url}}"],
+              "path": ["orders"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update order",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "// todo",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/orders/1",
+              "host": ["{{api-url}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete orders",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/orders/1",
+              "host": ["{{api-url}}"],
+              "path": ["orders", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "item": [
+        {
+          "name": "login user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"asd\",\r\n    \"password\": \"dsa\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/login",
+              "host": ["{{api-url}}"],
+              "path": ["login"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "register",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"username\": \"asd\",\r\n    \"password\": \"dsa\",\r\n    \"email\": \"dsa@dsa\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/register",
+              "host": ["{{api-url}}"],
+              "path": ["register"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "products",
+      "item": [
+        {
+          "name": "create product",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"p\",\r\n    \"description\": \"desccc\",\r\n    \"price\": 100,\r\n    \"location\": \"brno\", \r\n    \"user_id\": 1,\r\n    \"image\": \"https://www.vice.com/wp-content/uploads/sites/2/2017/04/1492631497526-stoned-dog.jpeg?w=1024\",\r\n    \"category_id\":1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/products",
+              "host": ["{{api-url}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get all products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/products",
+              "host": ["{{api-url}}"],
+              "path": ["products"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get product by id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/products/4",
+              "host": ["{{api-url}}"],
+              "path": ["products", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update product",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"price\":3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{api-url}}/products/4",
+              "host": ["{{api-url}}"],
+              "path": ["products", "4"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{api-url}}/products/4",
+              "host": ["{{api-url}}"],
+              "path": ["products", "4"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "api-url",
+      "value": "localhost:3000"
+    }
+  ]
+}

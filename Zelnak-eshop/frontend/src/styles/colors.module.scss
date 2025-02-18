@@ -1,0 +1,53 @@
+$colors: (
+    primary: #bb9e72,
+    primary-dark: darken(#bb9e72, 10%),
+    secondary: #292e52,
+    secondary-dark: darken(#292e52, 10%),
+    error: #ff0000,
+
+    text: #292e52,
+    heading: #bb9e72,
+    white: #ffffff,
+    black: #000000,
+
+    background: #e3e0db,
+);
+
+:root {
+    /* Primary Colors */
+    --color-primary: #{map-get($colors, primary)};
+    --color-primary-dark: #{map-get($colors, primary-dark)};
+
+    /* Secondary Colors */
+    --color-secondary: #{map-get($colors, secondary)};
+    --color-secondary-dark: #{map-get($colors, secondary-dark)};
+
+    /* State colors */
+    --color-error: #{map-get($colors, error)};
+
+    /* Text Colors */
+    --color-text: var(--color-secondary);
+    --color-heading: var(--color-primary);
+    --color-white: #{map-get($colors, white)};
+    --color-black: #{map-get($colors, black)};
+
+    /* Background Colors */
+    --color-background: #{map-get($colors, background)};
+}
+
+:export {
+    colorPrimary: map-get($colors, primary);
+    colorPrimaryDark: map-get($colors, primary-dark);
+
+    colorSecondary: map-get($colors, secondary);
+    colorSecondaryDark: map-get($colors, secondary-dark);
+
+    colorError: map-get($colors, error);
+
+    colorText: map-get($colors, text);
+    colorHeading: map-get($colors, heading);
+    colorWhite: map-get($colors, white);
+    colorBlack: map-get($colors, black);
+
+    colorBackground: map-get($colors, background);
+}
